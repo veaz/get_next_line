@@ -2,11 +2,15 @@
 
 int main()
 {
-
-    int fd;
-
-    fd = open("./fd.txt", O_RDONLY);
-    prtinf("f= %s \n", get_next_line(fd));
+	char	*test;
+    int		fd;
 
 
+	//fd = open("./fd.txt", O_RDONLY); //nombre, modo, permisos O_APPEND
+	fd = open("./fd.txt", O_RDONLY);
+	
+	printf("fd = %i\n", fd);
+	test = get_next_line(fd);
+
+	printf("test = %s\n", test);
 }
