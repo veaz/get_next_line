@@ -20,4 +20,5 @@ char	*ft_morechar(char *s, char c)
     s[x] = c;
     s[x + 1] = '\0';
     printf("s ++ = %s\n", s);
+    return (s);
 }
