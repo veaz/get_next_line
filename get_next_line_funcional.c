@@ -65,9 +65,11 @@ char	*ft_new_line(char **src)
 
 char	*ft_buf_value(char **src, char *buf, int fd)
 {
+	char	*new_line;
 	char	*temp;
 	int		count;
 
+	new_line = NULL;
 	while (ft_nl(*src) < 0)
 	{
 		count = read(fd, buf, BUFFER_SIZE);
@@ -83,7 +85,9 @@ char	*ft_buf_value(char **src, char *buf, int fd)
 	}
 	if (count < 0 || *src == NULL)
 		return (NULL);
-	return (ft_new_line(src));
+	if (ft_nl(*src) >= 0 || count == 0)
+		new_line = ft_new_line(src);
+	return (new_line);
 }
 
 char	*get_next_line(int fd)
