@@ -45,21 +45,21 @@ char	*ft_new_line(char **src)
 	int		lensrc;
 	int		nl;
 
+	ptr = NULL;
 	lensrc = ft_strlen(*src);
 	nl = ft_nl(*src);
 	if (nl >= 0)
 	{
 		ptr = ft_substr(*src, 0, nl + 1);
 		*src = ft_delete_line(src, nl, lensrc, 1);
-		return (ptr);
 	}
-	if (lensrc == 0)
-	{
+	else if (lensrc == 0)
 		*src = ft_delete_line(src, nl, lensrc, 0);
-		return (NULL);
+	else if (lensrc > 0)
+	{
+		ptr = ft_substr(*src, 0, lensrc);
+		*src = ft_delete_line(src, nl, lensrc, 0);
 	}
-	ptr = ft_substr(*src, 0, lensrc);
-	*src = ft_delete_line(src, nl, lensrc, 0);
 	return (ptr);
 }
 

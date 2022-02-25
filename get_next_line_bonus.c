@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vaguilar <vaguilar@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 int	ft_nl(char *src)
 {
@@ -45,31 +45,29 @@ char	*ft_new_line(char **src)
 	int		lensrc;
 	int		nl;
 
+	ptr = NULL;
 	lensrc = ft_strlen(*src);
 	nl = ft_nl(*src);
 	if (nl >= 0)
 	{
 		ptr = ft_substr(*src, 0, nl + 1);
 		*src = ft_delete_line(src, nl, lensrc, 1);
-		return (ptr);
 	}
-	if (lensrc == 0)
-	{
+	else if (lensrc == 0)
 		*src = ft_delete_line(src, nl, lensrc, 0);
-		return (NULL);
+	else if (lensrc > 0)
+	{
+		ptr = ft_substr(*src, 0, lensrc);
+		*src = ft_delete_line(src, nl, lensrc, 0);
 	}
-	ptr = ft_substr(*src, 0, lensrc);
-	*src = ft_delete_line(src, nl, lensrc, 0);
 	return (ptr);
 }
 
 char	*ft_buf_value(char **src, char *buf, int fd)
 {
-	char	*new_line;
 	char	*temp;
 	int		count;
 
-	new_line = NULL;
 	while (ft_nl(*src) < 0)
 	{
 		count = read(fd, buf, BUFFER_SIZE);
@@ -85,31 +83,29 @@ char	*ft_buf_value(char **src, char *buf, int fd)
 	}
 	if (count < 0 || *src == NULL)
 		return (NULL);
-	if (ft_nl(*src) >= 0 || count == 0)
-		new_line = ft_new_line(src);
-	return (new_line);
+	return (ft_new_line(src));
 }
 
 char	*get_next_line(int fd)
 {
-	static char	*src = NULL;
+	static char	*src[256];
 	char		*buf;
 	char		*new_line;
 
 	buf = NULL;
 	if (fd < 0 || BUFFER_SIZE < 1 || fd > 256)
 		return (NULL);
-	if (ft_nl(src) < 0)
+	if (ft_nl(src[fd]) < 0)
 	{
 		buf = (char *)malloc((BUFFER_SIZE + 1) * sizeof(char));
 		if (!buf)
 			return (NULL);
-		new_line = ft_buf_value(&src, buf, fd);
+		new_line = ft_buf_value(&src[fd], buf, fd);
 		free(buf);
 	}
 	else
 	{
-		new_line = ft_new_line(&src);
+		new_line = ft_new_line(&src[fd]);
 	}
 	return (new_line);
 }
