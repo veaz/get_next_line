@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils_bonus.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vaguilar <vaguilar@student.42barcel>       +#+  +:+       +#+        */
+/*   By: vaguilar <vaguilar@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 14:20:19 by vaguilar          #+#    #+#             */
-/*   Updated: 2022/02/23 14:20:21 by vaguilar         ###   ########.fr       */
+/*   Updated: 2023/09/14 20:19:15 by vaguilar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line_bonus.h"
+#include "../include/get_next_line_bonus.h"
 
 int	ft_strlen(const char *s)
 {

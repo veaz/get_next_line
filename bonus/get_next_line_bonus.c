@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vaguilar <vaguilar@student.42barcel>       +#+  +:+       +#+        */
+/*   By: vaguilar <vaguilar@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 14:01:30 by vaguilar          #+#    #+#             */
-/*   Updated: 2022/02/23 14:01:32 by vaguilar         ###   ########.fr       */
+/*   Updated: 2023/09/14 20:19:09 by vaguilar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "../include/get_next_line_bonus.h"
 
 int	ft_nl(char *src)
 {
@@ -88,24 +88,24 @@ char	*ft_buf_value(char **src, char *buf, int fd)
 
 char	*get_next_line(int fd)
 {
-	static char	*src = NULL;
+	static char	*src[256];
 	char		*buf;
 	char		*new_line;
 
 	buf = NULL;
 	if (fd < 0 || BUFFER_SIZE < 1 || fd > 256)
 		return (NULL);
-	if (ft_nl(src) < 0)
+	if (ft_nl(src[fd]) < 0)
 	{
 		buf = (char *)malloc((BUFFER_SIZE + 1) * sizeof(char));
 		if (!buf)
 			return (NULL);
-		new_line = ft_buf_value(&src, buf, fd);
+		new_line = ft_buf_value(&src[fd], buf, fd);
 		free(buf);
 	}
 	else
 	{
-		new_line = ft_new_line(&src);
+		new_line = ft_new_line(&src[fd]);
 	}
 	return (new_line);
 }
